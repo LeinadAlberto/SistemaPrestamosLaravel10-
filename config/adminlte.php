@@ -329,6 +329,18 @@ return [
                 ],
             ],
         ],
+        [
+            'text' => 'Clientes',
+            'icon' => 'nav-icon fas fa-fw fa-id-card', 
+            'classes' => 'bg-info text-white',
+            'submenu' => [
+                [
+                    'text' => 'Listado de Clientes',
+                    'url' => 'admin/clientes',
+                    'classes' => 'bg-white text-black',
+                ],
+            ],
+        ],
     ],
 
     /*

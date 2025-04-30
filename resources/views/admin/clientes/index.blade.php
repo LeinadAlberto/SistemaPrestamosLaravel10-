@@ -1,25 +1,24 @@
 @extends('adminlte::page')
 
 @section('content_header')
-    <h1>Listado de Usuarios</h1>
+    <h1>Listado de Clientes</h1>
     <hr>
 @stop
 
 @section('content')
 
     <div class="row"> 
-        <div class="col-md-1"></div>
-
-        <div class="col-md-10">
+        
+        <div class="col-md-12">
 
             <div class="card card-outline card-info">
 
                 <div class="card-header">
 
-                    <h3 class="card-title">Usuarios registrados</h3>
+                    <h3 class="card-title">Clientes registrados</h3>
                     
                     <div class="card-tools">
-                        <a href="{{ url('/admin/usuarios/create') }}" class="btn btn-info">Crear Nuevo</a>
+                        <a href="{{ url('/admin/clientes/create') }}" class="btn btn-info">Crear Nuevo</a>
                     </div>
 
                 </div><!-- /.card-header --> 
@@ -30,44 +29,50 @@
                         <thead>
                             <tr class="text-center text-white" style="background-color: #212529">
                                 <th>Nro</th>
-                                <th>Nombre</th>
-                                <th>Rol del Usuario</th>
+                                <th>Documento</th>
+                                <th>Apellido(s) y Nombre(s)</th>
+                                <th>Género</th>
                                 <th>Correo Electrónico</th>
+                                <th>Celular</th>
+                                <th>Ref. Celular</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
+                        
                         <tbody>
                             @php
                                 $contador = 1;
                             @endphp
-                            @foreach ($usuarios as $usuario)
+                            @foreach ($clientes as $cliente)
                                 <tr>
                                     <td class="text-center align-middle">{{ $contador++ }}</td>
-
-                                    <td class="align-middle">{{ $usuario->name }}</td>
-                                    <td class="align-middle text-center">{{ $usuario->roles->pluck('name')->implode(', ') }}</td>
-                                    <td class="align-middle text-center">{{ $usuario->email }}</td>
-                                    
+                                    <td class="text-center align-middle">{{ $cliente->nro_documento }}</td>
+                                    <td class="align-middle">{{ $cliente->apellidos . " " . $cliente->nombres }}</td>
+                                    <td class="text-center align-middle">{{ $cliente->genero }}</td>
+                                    <td class="text-center align-middle">{{ $cliente->email }}</td>
+                                    <td class="text-center align-middle">{{ $cliente->celular }}</td>
+                                    <td class="text-center align-middle">{{ $cliente->ref_celular }}</td>
+                            
                                     <!-- Botones Ver, Editar y Eliminar -->
                                     <td class="text-center align-middle">
                                         <div class="btn-group" role="group">
                                             <!-- Boton Ver -->
-                                            <a href="{{ url('/admin/usuarios/' . $usuario->id) }}" 
+                                            <a href="{{ url('/admin/clientes/' . $cliente->id) }}" 
                                                 class="btn btn-sm btn-info" 
                                                 style="border-radius: 4px 0px 0px 4px">
                                                 <i class="fas fa-eye" title="Ver"></i>
                                             </a>
 
                                             <!-- Boton Editar -->
-                                            <a href="{{ url('/admin/usuarios/' . $usuario->id . '/edit') }}" 
+                                            <a href="{{ url('/admin/clientes/' . $cliente->id . '/edit') }}" 
                                                 class="btn btn-sm btn-success" 
                                                 style="border-radius: 0px 0px 0px 0px">
                                                 <i class="fas fa-pencil-alt" title="Editar"></i>
                                             </a>
 
                                             <!-- Boton Eliminar -->
-                                            <form action="{{ url('/admin/usuarios/' . $usuario->id) }}" method="post"
-                                                onclick="preguntar{{$usuario->id}}(event)" id="miFormulario{{$usuario->id}}">
+                                            <form action="{{ url('/admin/clientes/' . $cliente->id) }}" method="post"
+                                                onclick="preguntar{{$cliente->id}}(event)" id="miFormulario{{$cliente->id}}">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger btn-sm" style="border-radius: 0px 4px 4px 0px">
@@ -75,7 +80,7 @@
                                                 </button>
                                             </form>
                                             <script>
-                                                function preguntar{{$usuario->id}}(event) {
+                                                function preguntar{{$cliente->id}}(event) {
                                                     event.preventDefault();
                                                     Swal.fire({
                                                         title: '¿Desea eliminar este registro?',
@@ -88,7 +93,7 @@
                                                         denyButtonText: 'Cancelar', 
                                                     }).then( (result) => {
                                                         if (result.isConfirmed) {
-                                                            var form = $('#miFormulario{{$usuario->id}}');
+                                                            var form = $('#miFormulario{{$cliente->id}}');
                                                             form.submit();
                                                         }
                                                     }); 
@@ -106,8 +111,6 @@
             </div><!-- /.card -->
 
         </div><!-- /.col-md-12 --> 
-        
-        <div class="col-md-1"></div>
 
     </div><!-- /.row --> 
 
@@ -151,10 +154,10 @@
                 "pageLength": 5,
                 "language": {
                     "emptyTable": "No hay información",
-                    "info": "Mostrando _START_ a _END_ de _TOTAL_ Usuarios",
-                    "infoEmpty": "Mostrando 0 a 0 de 0 Usuarios",
-                    "infoFiltered": "(Filtrado de _MAX_ total Usuarios)",
-                    "lengthMenu": "Mostrar _MENU_ Usuarios",
+                    "info": "Mostrando _START_ a _END_ de _TOTAL_ Clientes",
+                    "infoEmpty": "Mostrando 0 a 0 de 0 Clientes",
+                    "infoFiltered": "(Filtrado de _MAX_ total Clientes)",
+                    "lengthMenu": "Mostrar _MENU_ Clientes",
                     "loadingRecords": "Cargando...",
                     "processing": "Procesando...",
                     "search": "Buscador:",
