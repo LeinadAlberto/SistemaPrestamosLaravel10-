@@ -35,7 +35,7 @@
                                     <label for="nro_documento">Documento <span class="text-danger">*</span></label>
                                     <div class="input-group mb-1">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="fas fa-id-card text-info"></i></span>
+                                            <span class="input-group-text"><i class="fas fa-id-card text-success"></i></span>
                                         </div>
                                         <input name="nro_documento" id="nro_documento" value="{{ $cliente->nro_documento }}" type="text" class="form-control" placeholder="Escriba aqui..." required>
                                     </div>
@@ -51,7 +51,7 @@
                                     <label for="nombres">Nombre(s) del Cliente <span class="text-danger">*</span></label>
                                     <div class="input-group mb-1">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="fas fa-user text-info"></i></span>
+                                            <span class="input-group-text"><i class="fas fa-user text-success"></i></span>
                                         </div>
                                         <input name="nombres" id="nombres" value="{{ $cliente->nombres }}" type="text" class="form-control" placeholder="Escriba aqui..." required>
                                     </div>
@@ -67,7 +67,7 @@
                                     <label for="apellidos">Apellido(s) del Cliente <span class="text-danger">*</span></label>
                                     <div class="input-group mb-1">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="fas fa-user text-info"></i></span>
+                                            <span class="input-group-text"><i class="fas fa-user text-success"></i></span>
                                         </div>
                                         <input name="apellidos" id="apellidos" value="{{ $cliente->apellidos }}" type="text" class="form-control" placeholder="Escriba aqui..." required>
                                     </div>
@@ -83,7 +83,7 @@
                                     <label for="fecha_nacimiento">Fecha de Nacimiento <span class="text-danger">*</span></label>
                                     <div class="input-group mb-1">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="fas fa-calendar text-info"></i></span>
+                                            <span class="input-group-text"><i class="fas fa-calendar text-success"></i></span>
                                         </div>
                                         <input name="fecha_nacimiento" id="fecha_nacimiento" value="{{ $cliente->fecha_nacimiento }}" type="date" class="form-control" placeholder="Escriba aqui..." required>
                                     </div>
@@ -94,32 +94,33 @@
                             </div><!-- /.col-md-3 -->
                         </div><!-- /.row -->
 
-                        
+                        <!-- Género, Correo Electrónico, Celular, Número de Referencia -->
                         <div class="row">
+                            <!-- Género -->
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label for="">Género <span class="text-danger">*</span></label>
+                                    <label for="genero">Género <span class="text-danger">*</span></label>
                                     <div class="input-group mb-1">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="fas fa-user-check text-info"></i></span>
+                                            <span class="input-group-text"><i class="fas fa-user-check text-success"></i></span>
                                         </div>
-                                        <select name="genero" id="" class="form-control">
-                                            <option value="">Seleccionar...</option>
-                                            <option value="MASCULINO">MASCULINO</option>
-                                            <option value="FEMENINO">FEMENINO</option>
+                                        <select name="genero" id="genero" class="form-control" required>
+                                            <option value="MASCULINO" {{ $cliente->genero == 'MASCULINO' ? 'selected' : '' }}>MASCULINO</option>
+                                            <option value="FEMENINO" {{ $cliente->genero == 'FEMENINO' ? 'selected' : '' }}>FEMENINO</option>
                                         </select>
                                     </div>
                                 </div><!-- /.form-group -->
                             </div><!-- /.col-md-3 -->
 
+                            <!-- Correo Electrónico -->
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label for="">Correo Electrónico <span class="text-danger">*</span></label>
+                                    <label for="email">Correo Electrónico <span class="text-danger">*</span></label>
                                     <div class="input-group mb-1">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="fas fa-envelope text-info"></i></span>
+                                            <span class="input-group-text"><i class="fas fa-envelope text-success"></i></span>
                                         </div>
-                                        <input name="email" type="email" class="form-control" placeholder="Escriba aqui..." required>
+                                        <input name="email" id="email" value="{{ $cliente->email }}" type="email" class="form-control" placeholder="Escriba aqui..." required>
                                     </div>
                                     @error('email')
                                         <small class="text-danger">{{ $message }}</small>
@@ -127,14 +128,15 @@
                                 </div><!-- /.form-group -->
                             </div><!-- /.col-md-3 -->
 
+                            <!-- Celular -->
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label for="">Celular <span class="text-danger">*</span></label>
+                                    <label for="celular">Celular <span class="text-danger">*</span></label>
                                     <div class="input-group mb-1">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="fas fa-phone text-info"></i></span>
+                                            <span class="input-group-text"><i class="fas fa-phone text-success"></i></span>
                                         </div>
-                                        <input name="celular" type="number" class="form-control" placeholder="Escriba aqui..." required>
+                                        <input name="celular" id="celular" value="{{ $cliente->celular }}" type="number" class="form-control" placeholder="Escriba aqui..." required>
                                     </div>
                                     @error('celular')
                                         <small class="text-danger">{{ $message }}</small>
@@ -142,14 +144,15 @@
                                 </div><!-- /.form-group -->
                             </div><!-- /.col-md-3 -->
 
+                            <!-- Número de Referencia -->
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label for="">Número de Referencia <span class="text-danger">*</span></label>
+                                    <label for="ref_celular">Número de Referencia <span class="text-danger">*</span></label>
                                     <div class="input-group mb-1">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="fas fa-phone text-info"></i></span>
+                                            <span class="input-group-text"><i class="fas fa-phone text-success"></i></span>
                                         </div>
-                                        <input name="ref_celular" type="number" class="form-control" placeholder="Escriba aqui..." required>
+                                        <input name="ref_celular" id="ref_celular" value="{{ $cliente->ref_celular }}" type="number" class="form-control" placeholder="Escriba aqui..." required>
                                     </div>
                                     @error('ref_celular')
                                         <small class="text-danger">{{ $message }}</small>
@@ -164,7 +167,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <a href="{{ url('/admin/clientes') }}" class="btn btn-secondary">Cancelar</a>
-                                    <button type="submit" class="btn btn-info">Registrar</button>
+                                    <button type="submit" class="btn btn-success">Modificar</button>
                                 </div>
                             </div><!-- col-md-12 -->
                         </div><!-- /.row -->
