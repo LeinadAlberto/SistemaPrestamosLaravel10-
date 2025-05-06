@@ -75,3 +75,19 @@ Route::put('/admin/clientes/{id}', [App\Http\Controllers\ClienteController::clas
 ->name('admin.cliente.update')->middleware('auth');
 Route::delete('/admin/clientes/{id}', [App\Http\Controllers\ClienteController::class, 'destroy'])
 ->name('admin.cliente.destroy')->middleware('auth');
+
+// Rutas para Prestamos
+Route::get('/admin/prestamos', [App\Http\Controllers\PrestamoController::class, 'index'])
+->name('admin.prestamo.index')->middleware('auth');
+Route::get('/admin/prestamos/create', [App\Http\Controllers\PrestamoController::class, 'create'])
+->name('admin.prestamo.create')->middleware('auth');
+Route::post('/admin/prestamos/create', [App\Http\Controllers\PrestamoController::class, 'store'])
+->name('admin.prestamo.store')->middleware('auth');
+Route::get('/admin/prestamos/{id}', [App\Http\Controllers\PrestamoController::class, 'show'])
+->name('admin.prestamo.show')->middleware('auth');
+Route::get('/admin/prestamos/{id}/edit', [App\Http\Controllers\PrestamoController::class, 'edit'])
+->name('admin.prestamo.edit')->middleware('auth');
+Route::put('/admin/prestamos/{id}', [App\Http\Controllers\PrestamoController::class, 'update'])
+->name('admin.prestamo.update')->middleware('auth');
+Route::delete('/admin/prestamos/{id}', [App\Http\Controllers\PrestamoController::class, 'destroy'])
+->name('admin.prestamo.destroy')->middleware('auth');

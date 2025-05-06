@@ -5,13 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Cliente extends Model
+class Pago extends Model
 {
     use HasFactory;
 
-    /* Un cliente tiene muchos prestamos */
-    public function prestamos() 
+    /* Un pago pertenece a un prestamo */
+    public function prestamo() 
     {
-        return $this->hasMany(Prestamo::class);
+        return $this->belongsTo(Prestamo::class);
     }
 }

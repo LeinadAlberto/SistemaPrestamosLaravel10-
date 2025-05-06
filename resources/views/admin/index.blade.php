@@ -76,6 +76,29 @@
                 </div><!-- /.info-box -->
             </a>
         </div><!-- /.col-md-3 -->
+
+        <!-- Card Clientes -->
+        <div class="col-md-3 col-sm-6 col-12">
+            <a href="{{ url('/admin/clientes') }}">
+                <div class="info-box zoomP">
+                    <span class="info-box-icon bg-info">
+                        <img src="{{ url("/images/cliente.gif") }}" width="100%" alt="imagen">
+                    </span>
+                    
+                    <div class="info-box-content">
+                        <span class="info-box-text text-info" style="font-weight: bold">Clientes</span>
+                        <span class="info-box-number text-dark">
+                            {{  $total_clientes }} 
+                            @if($total_clientes == 1)
+                                Cliente
+                            @else
+                                Clientes
+                            @endif
+                        </span>
+                    </div><!-- /.info-box-content -->
+                </div><!-- /.info-box -->
+            </a>
+        </div><!-- /.col-md-3 -->
     
     </div>
 @stop

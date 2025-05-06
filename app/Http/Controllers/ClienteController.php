@@ -103,8 +103,12 @@ class ClienteController extends Controller
             ->with("icono", "success"); 
     }
 
-    public function destroy(Cliente $cliente)
+    public function destroy($id)
     {
-        
+        Cliente::destroy($id);
+
+        return redirect()->route("admin.cliente.index")
+            ->with("mensaje", "Registro eliminado exitosamente")
+            ->with("icono", "success"); 
     }
 }

@@ -341,6 +341,18 @@ return [
                 ],
             ],
         ],
+        [
+            'text' => 'Prestamos',
+            'icon' => 'nav-icon fas fa-hand-holding-usd', 
+            'classes' => 'bg-info text-white',
+            'submenu' => [
+                [
+                    'text' => 'Listado de Prestamos',
+                    'url' => 'admin/prestamos',
+                    'classes' => 'bg-white text-black',
+                ],
+            ],
+        ],
     ],
 
     /*
