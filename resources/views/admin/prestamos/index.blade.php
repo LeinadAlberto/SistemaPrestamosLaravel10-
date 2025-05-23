@@ -15,7 +15,7 @@
 
                 <div class="card-header">
 
-                    <h3 class="card-title">Prestamos registrados</h3>
+                    <h3 class="card-title">Préstamos Registrados</h3>
                     
                     <div class="card-tools">
                         <a href="{{ url('/admin/prestamos/create') }}" class="btn btn-info">Crear Nuevo</a>
@@ -31,7 +31,7 @@
                                 <th>Nro</th>
                                 <th>Documento</th>
                                 <th>Apellido(s) y Nombre(s)</th>
-                                <th>Monto Prestado</th>
+                                <th>Monto Préstado</th>
                                 <th>Tasa de Interés</th>
                                 <th>Modalidad</th>
                                 <th>Número de cuotas</th>
