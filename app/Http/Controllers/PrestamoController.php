@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Prestamo;
+use App\Models\Cliente;
 use Illuminate\Http\Request;
 
 class PrestamoController extends Controller

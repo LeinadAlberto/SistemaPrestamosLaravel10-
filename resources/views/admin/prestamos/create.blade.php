@@ -22,13 +22,17 @@
                 <div class="card-body">
 
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-5">
                             <label for="nro_documento">Documento del Cliente<span class="text-danger">*</span></label>
                             <div class="input-group mb-1">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-id-card text-info"></i></span>
                                 </div>
-                                <select name="" id="" class="form-control"></select>
+                                <select name="" id="" class="form-control select2">
+                                    @foreach ($clientes as $cliente)
+                                        <option value="{{ $cliente->id }}">{{ $cliente->apellidos . " " . $cliente->nombres }}</option>
+                                    @endforeach
+                                </select>
                                 <button class="btn btn-info"><i class="fa fa-search"></i> Buscar cliente</button>
                             </div>
                         </div>
@@ -200,8 +204,18 @@
 @stop
 
 @section('css')  
+    <style>
+        .select2-container .select2-selection--single {
+            height: 40px !important; /* Ajusta la altura total del select */
+        }
+    </style>
 @stop
 
 
-@section('js')   
+@section('js')  
+    <script>
+        $('.select2').select2({
+
+        });
+    </script>
 @stop
