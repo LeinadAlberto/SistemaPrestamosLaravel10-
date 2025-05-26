@@ -91,3 +91,6 @@ Route::put('/admin/prestamos/{id}', [App\Http\Controllers\PrestamoController::cl
     ->name('admin.prestamo.update')->middleware('auth');
 Route::delete('/admin/prestamos/{id}', [App\Http\Controllers\PrestamoController::class, 'destroy'])
     ->name('admin.prestamo.destroy')->middleware('auth');
+    // Ruta para Clientes dentro Prestamos
+    Route::get('/admin/prestamos/cliente/{id}', [App\Http\Controllers\PrestamoController::class, 'obtenerCliente'])
+        ->name('admin.prestamo.cliente.obtenerCliente')->middleware('auth');

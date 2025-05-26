@@ -46,4 +46,16 @@ class PrestamoController extends Controller
     {
         
     }
+
+    // Métodos para Cliente dentro de Prestamos
+    public function obtenerCliente($id) 
+    {
+        $cliente = Cliente::find($id);
+
+        if (!$cliente) {
+            return response()->json(['error' => 'Cliente no encontrado']);
+        }
+
+        return response()->json($cliente);
+    }
 }
