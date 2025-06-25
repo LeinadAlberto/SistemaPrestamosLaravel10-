@@ -23,7 +23,7 @@
                 <div class="card-body">
 
                     <div class="row">
-                        <div class="col-md-5">
+                        <div class="col-md-6">
                             <label for="nro_documento">Busqueda del Cliente<span class="text-danger">*</span></label>
                             <div class="input-group mb-1">
                                 <div class="input-group-prepend">
@@ -37,7 +37,7 @@
                                 </select>
                             </div>
                         </div>
-                    </div>
+                    </div><!-- /.row -->
 
                     <hr>
 
@@ -179,45 +179,69 @@
                 <div class="card-body">
 
                     <div class="row">
+                        <!-- Monto del préstamo -->
                         <div class="col-md-2">
                             <div class="form-group">
                                 <label for="">Monto del préstamo</label>
-                                <input type="text" class="form-control">
+                                <input id="monto_prestado" type="text" class="form-control">
                             </div>
                         </div>
 
+                        <!-- Tasa de interés -->
                         <div class="col-md-2">
                             <label for="">Tasa de interés</label>
                             <div class="input-group mb-3">
-                                <input type="text" class="form-control">
+                                <input id="tasa_interes" type="text" class="form-control">
                                 <div class="input-group-append">
                                     <span class="input-group-text">%</span>
                                 </div>
                             </div>
                         </div>
 
+                        <!-- Modalidad -->
                         <div class="col-md-2">
                             <div class="form-group">
                                 <label for="">Modalidad</label>
-                                <select name="" id="" class="form-control">
+                                <select name="" id="modalidad" class="form-control">
                                     <option value="Diario">Diario</option>
                                     <option value="Semanal">Semanal</option>
-                                    <option value="Mensual">Mensual</option>
+                                    <option value="Mensual" selected>Mensual</option>
                                     <option value="Quincenal">Quincenal</option>
                                     <option value="Anual">Anual</option>
                                 </select>
                             </div>
                         </div>
 
+                        <!-- Número de cuotas -->
                         <div class="col-md-2">
                             <div class="form-group">
                                 <label for="">Número de cuotas</label>
-                                <input type="number" class="form-control">
+                                <input id="nro_cuotas" type="number" class="form-control">
                             </div>
                         </div>
-                    </div>
+
+                        <!-- Fecha de préstamo -->
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="">Fecha de préstamo</label>
+                                <input id="fecha_inicio" type="date" class="form-control" value="{{ Carbon\Carbon::now()->format('Y-m-d') }}">
+                            </div>
+                        </div>
+
+                        <!-- Boton, Calcular préstamo -->
+                        <div class="col-md-2 d-flex justify-content-center align-items-center mt-2">
+                            <button class="btn btn-success" onclick="calcularPrestamo()">
+                                <i class="fas fa-calculator mr-2"></i>
+                                Calcular préstamo
+                            </button>
+                        </div>
+                    </div><!-- /.row -->
 
                     <hr>
+
+                    <div class="row">
+
+                    </div><!-- /.row -->
 
                 </div><!-- /.card-body --> 
 
@@ -243,14 +267,15 @@
         $('.select2').select2({});
 
         $('.select2').on('change', function() {
-            var id = $(this).val();
-            /* alert(cliente_id); */
+            var id = $(this).val(); // Obtiene el id de la opción seleccionada en el select
+            /* alert(id); */
             if (id) {
                 $.ajax({
                     url: '{{ url("/admin/prestamos/cliente")}}' + '/' + id,
                     type: 'GET',
                     success: function(cliente) {
-                        $('#contenido_cliente').css('display', 'block');
+                        console.log(cliente)
+                        $('#contenido_cliente').css('display', 'block'); 
                         $('#nro_documento').val(cliente.nro_documento);
                         $('#nombres').val(cliente.nombres);
                         $('#apellidos').val(cliente.apellidos);
@@ -258,7 +283,7 @@
                         $('#genero').val(cliente.genero);
                         $('#email').val(cliente.email);
                         $('#celular').val(cliente.celular);
-                        $('#ref_celular').val(cliente.ref_celular);
+                        $('#ref_celular').val(cliente.ref_celular); 
                     }, 
                     error: function() {
                         alert('No se pudo obtener la información del Cliente');
@@ -266,5 +291,61 @@
                 });
             }
         })
+
+        function calcularPrestamo() {
+            const montoPrestado = parseFloat(document.getElementById('monto_prestado').value);
+            const tasaInteres = parseFloat(document.getElementById('tasa_interes').value) / 100;
+            const modalidad = document.getElementById('modalidad').value;
+            const nroCuotas = parseInt(document.getElementById('nro_cuotas').value);
+
+            if (isNaN(montoPrestado) || isNaN(tasaInteres) || isNaN(nroCuotas) || montoPrestado <= 0 || tasaInteres < 0 || nroCuotas <= 0) {
+                alert('Por favor ingrese valores validos.');
+                return;
+            }
+
+            // Ajustar la tasa de interes segun la modalidad
+            let tasaInteresAjustada = 0;
+
+            switch (modalidad) {
+                case "Diario":
+                    tasaInteresAjustada = tasaInteres / 30; // Suponiendo 30 dias en un mes
+                    break;
+                case "Semanal":
+                    tasaInteresAjustada = tasaInteres / 4; // Suponiendo semanas en un mes
+                    break;
+                case "Quincenal":
+                    tasaInteresAjustada = tasaInteres / 2; // Suponiendo 2 quincenas en un mes
+                    break;
+                case "Mensual":
+                    tasaInteresAjustada = tasaInteres; // Tasa mensual directa
+                    break;
+                case "Anual":
+                    tasaInteresAjustada = tasaInteres * 12; // Multiplicar por 12 para convertira mensual
+                    break;
+                default:
+                    alert("Modalidad no válida");
+                    break;
+            }
+
+            // Calculo del interes total
+            const interesTotal  = montoPrestado * tasaInteres * nroCuotas;
+
+            // Calculo de total a pagar
+            const totalCancelar = montoPrestado + interesTotal;
+
+            // Calculo de la cuota fija
+            const cuota = totalCancelar / nroCuotas;
+
+            // Mostrar los resultados en el HTML
+            alert(`Resultado del prestamo: 
+                    Monto Prestado: $${montoPrestado}
+                    Tasa de Interés Ajustada: ${(tasaInteresAjustada * 100).toFixed(2)}%
+                    Modalidad: ${modalidad}
+                    Número de Cuotas: ${nroCuotas}
+                    Interés Total: $${interesTotal.toFixed(2)}
+                    Cuota por Pagar: $${cuota.toFixed(2)}
+                    Total a Cancelar: $${totalCancelar.toFixed(2)}
+                `);
+        }
     </script>
 @stop
